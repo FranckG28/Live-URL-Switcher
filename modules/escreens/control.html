@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/styles.css">
+    <title>Escreens Control - Live SAHB</title>
+
+</head>
+<body>
+        <button id="paste" class="bg-gray-800 hover:bg-gray-700 w-full h-full active:bg-blue-600">Coller le lien escreen</button>
+    </div>
+  
+    <script type="text/javascript">
+        let bc = new BroadcastChannel('livesahb-escreens');
+
+        document.querySelector("#paste").addEventListener('click', (ev) => {
+            ev.preventDefault();
+            navigator.clipboard.readText().then(clipText => {
+                console.log("Reçu : " + clipText);
+                sendMessage(clipText);
+            });
+        });
+
+        function sendMessage(url) {
+            bc.postMessage(url);
+        }
+    </script>
+    
+</body>
+</html>
