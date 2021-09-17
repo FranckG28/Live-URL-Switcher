@@ -8,18 +8,23 @@
 
 </head>
 <body>
-        <button id="paste" class="bg-gray-800 hover:bg-gray-700 w-full h-full active:bg-blue-600">Coller le lien escreen</button>
+        <input type="text" id="paste" class="bg-gray-800 hover:bg-gray-700 w-full h-full active:bg-blue-600"></input>
     </div>
   
     <script type="text/javascript">
         let bc = new BroadcastChannel('livesahb-escreens');
+        const input = document.querySelector("#paste");
 
-        document.querySelector("#paste").addEventListener('click', (ev) => {
+        input.addEventListener('click', (ev) => {
             ev.preventDefault();
-            navigator.clipboard.readText().then(clipText => {
-                console.log("Reçu : " + clipText);
-                sendMessage(clipText);
-            });
+            input.focus();
+            input.select();
+        })
+
+        input.addEventListener('input', (ev) => {
+            ev.preventDefault();
+            console.log(input.value);
+            sendMessage(input.value);
         });
 
         function sendMessage(url) {
