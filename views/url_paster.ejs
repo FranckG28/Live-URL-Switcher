@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./includes/head.ejs') %>
+        <style>
+            body, html
+        {
+            margin: 0; padding: 0; height: 100%; overflow: hidden;
+        }
+        </style>
+    </head>
+<body>
+    
+        <input type="text" id="paste" class="bg-gray-800 hover:bg-gray-700 w-full h-full active:bg-blue-600" placeholder="copy link here"></input>
+    </div>
+  
+    <script type="text/javascript">
+
+        const bcId = 'livesahb-url-'+"<%= id %>";
+        let bc = new BroadcastChannel(bcId);
+        console.log("Paster broadcaster started with id " + bcId);
+
+        const input = document.querySelector("#paste");
+        
+        input.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            input.focus();
+            input.select();
+        })
+
+        input.addEventListener('input', (ev) => {
+            ev.preventDefault();
+            const value = input.value;
+            const validURL = value.includes("http") && value.includes("://");
+            if (validURL) {
+                console.log("Sent " + input.value);
+                sendMessage(input.value);
+                input.classList.remove("text-red-500");
+            } else {
+                console.log("Not a valid URL");
+                input.classList.add("text-red-500");
+            }
+        });
+
+        function sendMessage(url) {
+            bc.postMessage(url);
+        }
+    </script>
+    
+</body>
+</html>
