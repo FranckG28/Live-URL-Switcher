@@ -8,6 +8,10 @@ body {
     @apply font-sahb bg-gray-900 text-gray-100
 }
 
+form {
+    margin: 0px;
+}
+
 .btn {
     @apply bg-blue-600 rounded-lg px-5 py-2 font-bold focus:ring-4 transition ease-out duration-200 shadow-md hover:shadow-xl text-white
 }
