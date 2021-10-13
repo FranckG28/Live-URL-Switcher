@@ -20,8 +20,11 @@
                             <button class="btn w-full" onclick="">
                                 <%= key %>    
                             </button>
-                            <button class="rounded border p-1 ml-2 w-9 hover:bg-white hover:text-red-500" onclick="">
-                                X</button>
+                            <form method="POST" action="/url/remove">
+                                <input type="hidden" name="id" value="<%= id %>" />
+                                <input type="hidden" name="name" value="<%= key %>" />
+                                <input type="submit" class="rounded border p-1 ml-2 w-9 text-red-50 hover:bg-white hover:text-red-500" value="X"/> 
+                            </form>
                         </div>
                     <%});
             } %> 

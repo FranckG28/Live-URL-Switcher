@@ -30,12 +30,11 @@ function addControllerData(id, name, url) {
   data = getControllerData(id);
   data[name] = url;
   saveControllerData(id, data);
-  return data;
 }
 
 function removeControllerData(id, name) {
   data = getControllerData(id);
-  delete data.name;
+  delete data[name];
   saveControllerData(id, data);
 }
 
@@ -70,7 +69,6 @@ app.get('/url/controller/:id', (req, res) => {
 });
 
 app.post('/url/add/', (req, res) => {
-  // PUT NEW DATA
   let id = req.body.id;
   let name = req.body.name;
   let url = req.body.url;
@@ -80,6 +78,23 @@ app.post('/url/add/', (req, res) => {
   if(name && url) {
     // VALIDE : Enregistrer : 
     data = addControllerData(id, name, url);
+  } else {
+    // TODO : AFFICHER MESSAGE D'ERREUR
+  }
+  
+  res.redirect("/url/controller/"+id);
+
+});
+
+app.post('/url/remove/', (req, res) => {
+  let id = req.body.id;
+  let name = req.body.name;
+
+  // TODO : AMELIORER LA VERIFICATION
+
+  if(name && id) {
+    // VALIDE : Supprimer : 
+    removeControllerData(id, name);
   } else {
     // TODO : AFFICHER MESSAGE D'ERREUR
   }
