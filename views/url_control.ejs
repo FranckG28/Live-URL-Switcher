@@ -14,18 +14,24 @@
         </div>
 
         <div class="p-4 rounded-lg bg-gray-800 mt-5">
-            <h3 class="uppercase font-bold mb-1">Ajouter une URL</h3>
-            <div>
-                <label class="text-white">Nom</label>
-                <input type="text" class="text-input w-full" id="name" placeholder="Ma page">
-            </div>
+            <form action="/url/add/" method="post">
             
-            <div class="mt-3">
-                <label class="text-white">URL</label>
-                <input type="text" class="text-input w-full" id="url" placeholder="https://google.com/">
-            </div>
+                <h3 class="uppercase font-bold mb-1">Ajouter une URL</h3>
+                <div>
+                    <label class="text-white">Nom</label>
+                    <input type="text" class="text-input w-full" id="name" name="name" placeholder="Ma page">
+                </div>
+                
+                <div class="mt-3">
+                    <label class="text-white">URL</label>
+                    <input type="text" class="text-input w-full" id="url" name="url" placeholder="https://google.com/">
+                </div>
 
-            <button class="btn w-full mt-3" id="addBtn">Ajouter</button>
+                <input type="hidden" value="<%= id %>" name="id"/>
+
+                <input type="submit" class="btn w-full mt-3" value="Ajouter"></button>
+
+            </form>
 
         </div>
 
@@ -34,93 +40,90 @@
   
     <script type="text/javascript" src="../assets/jquery.js"></script>
     <script type="text/javascript">
-        var bc = new BroadcastChannel('livesahb-dynamicurl');
+        const bcId = 'livesahb-url-'+"<%= id %>";
+        let bc = new BroadcastChannel(bcId);
 
         const urlLabel = document.querySelector("#actual-page")
-
-        const addBtn = document.querySelector("#addBtn")
-
         const urlList = document.querySelector("#URL-list")
 
-        const inputName = document.querySelector("#name")
-        const inputURL = document.querySelector("#url")
+
                 // actualPage.innerHTML = text
                 // bc.postMessage(text);
 
 
-        let data = [];
-        refreshTemplates()
+        // let data = [];
+        // refreshTemplates()
 
 
 
 
-        function send_page() {
-            url = $(this).attr("url")
-            console.log("Lancement de "+ url)
-            bc.postMessage(url)
-            urlLabel.innerHTML = url
-        }
+        // function send_page() {
+        //     url = $(this).attr("url")
+        //     console.log("Lancement de "+ url)
+        //     bc.postMessage(url)
+        //     urlLabel.innerHTML = url
+        // }
 
-        function delete_page() {
+        // function delete_page() {
 
-            id= $(this).attr("id")
+        //     id= $(this).attr("id")
             
-        }
+        // }
 
 
-        addBtn.addEventListener('click', () => {
+        // addBtn.addEventListener('click', () => {
 
-            urlName = inputName.value
-            url = inputURL.value
+        //     urlName = inputName.value
+        //     url = inputURL.value
 
-            if (urlName && url) {
-                inputName.value = ""
-                inputURL.value = ""
+        //     if (urlName && url) {
+        //         inputName.value = ""
+        //         inputURL.value = ""
 
-                addTemplate(urlName, url)
-            }
+        //         addTemplate(urlName, url)
+        //     }
 
-        })
+        // })
 
-        function addTemplate(name, url) {
-            item = {}
-            item["name"]=name
-            item["url"]=url
-            data.push(item)
-            refreshTemplates();
-        }
+        // function addTemplate(name, url) {
+        //     item = {}
+        //     item["name"]=name
+        //     item["url"]=url
+        //     data.push(item)
+        //     refreshTemplates();
+        // }
 
-        function refreshTemplates() {
-            urlList.innerHTML = ""
-            data.forEach(element => {
-                makeTemplate(element["name"], element["url"]);
-            })
-        }
+        // function refreshTemplates() {
+        //     urlList.innerHTML = ""
+        //     data.forEach(element => {
+        //         makeTemplate(element["name"], element["url"]);
+        //     })
+        // }
 
-        function makeTemplate(urlName, url) {
-            container = document.createElement("div")
-            container.className = "flex w-full items-center"
-            container.id = "container_"+urlName
+        // function makeTemplate(urlName, url) {
+        //     container = document.createElement("div")
+        //     container.className = "flex w-full items-center"
+        //     container.id = "container_"+urlName
 
-            button = document.createElement("button")
-            button.className = "btn w-full"
-            button.innerHTML = urlName
-            button.setAttribute("url", url)
-            button.onclick = send_page;
+        //     button = document.createElement("button")
+        //     button.className = "btn w-full"
+        //     button.innerHTML = urlName
+        //     button.setAttribute("url", url)
+        //     button.onclick = send_page;
 
-            delBtn = document.createElement("button")
-            delBtn.className = "rounded border p-1 ml-2 w-9 hover:bg-white hover:text-red-500"
-            delBtn.innerHTML = "X"
-            delBtn.setAttribute("id", urlName)
-            delBtn.onclick = delete_page;
+        //     delBtn = document.createElement("button")
+        //     delBtn.className = "rounded border p-1 ml-2 w-9 hover:bg-white hover:text-red-500"
+        //     delBtn.innerHTML = "X"
+        //     delBtn.setAttribute("id", urlName)
+        //     delBtn.onclick = delete_page;
 
-            container.appendChild(button)
-            container.appendChild(delBtn)
+        //     container.appendChild(button)
+        //     container.appendChild(delBtn)
 
-            urlList.appendChild(container)
+        //     urlList.appendChild(container)
 
-            console.log(urlName + " ajouté ")
-        }
+        //     console.log(urlName + " ajouté ")
+        // }
     </script>
     
 </body>

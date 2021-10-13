@@ -1,6 +1,45 @@
 const { localsName } = require('ejs');
-const express = require('express')
+const express = require('express');
+const fs = require('fs');
 const app = express();
+
+//************ APP ************* */
+
+const controllersFilePath = "data/controllers/";
+
+function getControllerFilePath(id) {
+  return controllersFilePath + id + ".json";
+}
+
+function getControllerData(id) {
+  path = getControllerFilePath(id);
+  if (!fs.existsSync(path)) {
+    fs.appendFileSync(path, "{}");
+  }
+  result = JSON.parse(fs.readFileSync(getControllerFilePath(id)).toString());
+  console.log(id + " obtenu ! Données : " + JSON.stringify(result));
+  return result;
+}
+
+function saveControllerData(id, data) {
+  fs.writeFileSync(getControllerFilePath(id), JSON.stringify(data))
+  console.log(id+ " enregistré ! Données : " + JSON.stringify(data));
+}
+
+function addControllerData(id, name, url) {
+  data = getControllerData(id);
+  data[name] = url;
+  saveControllerData(id, data);
+}
+
+function removeControllerData(id, name) {
+  data = getControllerData(id);
+  delete data.name;
+  saveControllerData(id, data);
+}
+
+
+//************ SERVER ************/
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -14,27 +53,27 @@ app.get('/', (req, res) => {
   res.render('index', {title: "Accueil"});
 });
 
-// DynamicURL
-// app.get('/dynamicurl', (req, res) => {
-//   res.sendFile('./public/dynamicurl/control.html', {root: __dirname});
-// });
-
 // // Titles
 // app.get('/titles', (req, res) => {
 //   res.sendFile('./public/titles/control.html', {root: __dirname});
 // });
 
-// Escreens
-// app.get('/url', (req, res) => {
-//   res.status(404).render('404');
-// });
+app.post('/url/add/', (req, res) => {
+  // PUT NEW DATA
+  let id = req.body.id;
+  let name = req.body.name;
+  let url = req.body.url;
+  addControllerData(id, name, url);
+});
 
 app.get('/url/source/:id', (req, res) => {
   res.render('url_source', {title: "URL Source", id: req.params.id});
 });
 
 app.get('/url/controller/:id', (req, res) => {
-  res.render('url_control', {title: "URL Controller", id: req.params.id});
+  // GET DATA :
+  data = getControllerData(req.params.id);
+  res.render('url_control', {title: "URL Controller", id: req.params.id, data: data});
 });
 
 app.get('/url/paster/:id', (req, res) => {
