@@ -19,3 +19,7 @@ body {
 label {
     @apply mb-0 uppercase text-sm font-bold text-gray-600 block
 }
+
+.alert {
+    @apply px-5 py-3 bg-red-100 rounded-xl text-red-500 font-bold mt-5
+}

@@ -10,7 +10,21 @@
         <h2 class="text-xl mb-5" id="actual-page">vide</h2>
 
         <div class="grid gap-3" id="URL-list">
-            
+            <% if(Object.keys(data).length === 0) {%>
+                
+                <h3 class="font-bold text-sm text-red-400">Aucune URL ajoutée !</h3>
+            <%} else { 
+                    Object.entries(data).forEach(entry => {
+                        const [key, value] = entry;%>
+                        <div class="flex w-full items-center">
+                            <button class="btn w-full" onclick="">
+                                <%= key %>    
+                            </button>
+                            <button class="rounded border p-1 ml-2 w-9 hover:bg-white hover:text-red-500" onclick="">
+                                X</button>
+                        </div>
+                    <%});
+            } %> 
         </div>
 
         <div class="p-4 rounded-lg bg-gray-800 mt-5">
@@ -29,16 +43,21 @@
 
                 <input type="hidden" value="<%= id %>" name="id"/>
 
-                <input type="submit" class="btn w-full mt-3" value="Ajouter"></button>
+                <% if (errorMsg) {%>
+                    <div class="alert"><%= errorMsg %></div>
+                <%}%>
+
+                <input type="submit" class="btn w-full mt-3" value="Ajouter" id="submit"></button>
 
             </form>
 
         </div>
 
+        <p>id : <%= id %></p>
+
         
 
   
-    <script type="text/javascript" src="../assets/jquery.js"></script>
     <script type="text/javascript">
         const bcId = 'livesahb-url-'+"<%= id %>";
         let bc = new BroadcastChannel(bcId);
@@ -46,16 +65,9 @@
         const urlLabel = document.querySelector("#actual-page")
         const urlList = document.querySelector("#URL-list")
 
-
-                // actualPage.innerHTML = text
-                // bc.postMessage(text);
-
-
-        // let data = [];
-        // refreshTemplates()
-
-
-
+        const inputName = document.querySelector("#name");
+        const inputURL = document.querySelector("#url");
+        const inputSubmit = document.querySelector("#submit");
 
         // function send_page() {
         //     url = $(this).attr("url")
@@ -64,66 +76,8 @@
         //     urlLabel.innerHTML = url
         // }
 
-        // function delete_page() {
+  
 
-        //     id= $(this).attr("id")
-            
-        // }
-
-
-        // addBtn.addEventListener('click', () => {
-
-        //     urlName = inputName.value
-        //     url = inputURL.value
-
-        //     if (urlName && url) {
-        //         inputName.value = ""
-        //         inputURL.value = ""
-
-        //         addTemplate(urlName, url)
-        //     }
-
-        // })
-
-        // function addTemplate(name, url) {
-        //     item = {}
-        //     item["name"]=name
-        //     item["url"]=url
-        //     data.push(item)
-        //     refreshTemplates();
-        // }
-
-        // function refreshTemplates() {
-        //     urlList.innerHTML = ""
-        //     data.forEach(element => {
-        //         makeTemplate(element["name"], element["url"]);
-        //     })
-        // }
-
-        // function makeTemplate(urlName, url) {
-        //     container = document.createElement("div")
-        //     container.className = "flex w-full items-center"
-        //     container.id = "container_"+urlName
-
-        //     button = document.createElement("button")
-        //     button.className = "btn w-full"
-        //     button.innerHTML = urlName
-        //     button.setAttribute("url", url)
-        //     button.onclick = send_page;
-
-        //     delBtn = document.createElement("button")
-        //     delBtn.className = "rounded border p-1 ml-2 w-9 hover:bg-white hover:text-red-500"
-        //     delBtn.innerHTML = "X"
-        //     delBtn.setAttribute("id", urlName)
-        //     delBtn.onclick = delete_page;
-
-        //     container.appendChild(button)
-        //     container.appendChild(delBtn)
-
-        //     urlList.appendChild(container)
-
-        //     console.log(urlName + " ajouté ")
-        // }
     </script>
     
 </body>

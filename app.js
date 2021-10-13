@@ -17,19 +17,20 @@ function getControllerData(id) {
     fs.appendFileSync(path, "{}");
   }
   result = JSON.parse(fs.readFileSync(getControllerFilePath(id)).toString());
-  console.log(id + " obtenu ! Données : " + JSON.stringify(result));
+  //console.log(id + " obtenu ! Données : " + JSON.stringify(result));
   return result;
 }
 
 function saveControllerData(id, data) {
   fs.writeFileSync(getControllerFilePath(id), JSON.stringify(data))
-  console.log(id+ " enregistré ! Données : " + JSON.stringify(data));
+  //console.log(id+ " enregistré ! Données : " + JSON.stringify(data));
 }
 
 function addControllerData(id, name, url) {
   data = getControllerData(id);
   data[name] = url;
   saveControllerData(id, data);
+  return data;
 }
 
 function removeControllerData(id, name) {
@@ -39,7 +40,7 @@ function removeControllerData(id, name) {
 }
 
 
-//************ SERVER ************/
+//************ SERVER & REQUESTS ************/
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -58,14 +59,6 @@ app.get('/', (req, res) => {
 //   res.sendFile('./public/titles/control.html', {root: __dirname});
 // });
 
-app.post('/url/add/', (req, res) => {
-  // PUT NEW DATA
-  let id = req.body.id;
-  let name = req.body.name;
-  let url = req.body.url;
-  addControllerData(id, name, url);
-});
-
 app.get('/url/source/:id', (req, res) => {
   res.render('url_source', {title: "URL Source", id: req.params.id});
 });
@@ -73,7 +66,26 @@ app.get('/url/source/:id', (req, res) => {
 app.get('/url/controller/:id', (req, res) => {
   // GET DATA :
   data = getControllerData(req.params.id);
-  res.render('url_control', {title: "URL Controller", id: req.params.id, data: data});
+  res.render('url_control', {title: "URL Controller", id: req.params.id, data: data, errorMsg: ""});
+});
+
+app.post('/url/add/', (req, res) => {
+  // PUT NEW DATA
+  let id = req.body.id;
+  let name = req.body.name;
+  let url = req.body.url;
+
+  // TODO : AMELIORER LA VERIFICATION
+
+  if(name && url) {
+    // VALIDE : Enregistrer : 
+    data = addControllerData(id, name, url);
+  } else {
+    // TODO : AFFICHER MESSAGE D'ERREUR
+  }
+  
+  res.redirect("/url/controller/"+id);
+
 });
 
 app.get('/url/paster/:id', (req, res) => {
