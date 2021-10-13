@@ -13,11 +13,13 @@
             <% if(Object.keys(data).length === 0) {%>
                 
                 <h3 class="font-bold text-sm text-red-400">Aucune URL ajoutée !</h3>
+
             <%} else { 
                     Object.entries(data).forEach(entry => {
                         const [key, value] = entry;%>
+
                         <div class="flex w-full items-center">
-                            <button class="btn w-full" onclick="">
+                            <button class="btn w-full" onclick="send_page(this.getAttribute('data-url'))" data-url="<%=value%>">
                                 <%= key %>    
                             </button>
                             <form method="POST" action="/url/remove">
@@ -56,28 +58,27 @@
 
         </div>
 
-        <p>id : <%= id %></p>
+        <p class="text-gray-800">id : <%= id %></p>
 
         
 
   
     <script type="text/javascript">
+
         const bcId = 'livesahb-url-'+"<%= id %>";
         let bc = new BroadcastChannel(bcId);
 
-        const urlLabel = document.querySelector("#actual-page")
-        const urlList = document.querySelector("#URL-list")
+        // const urlLabel = document.querySelector("#actual-page")
+        // const urlList = document.querySelector("#URL-list")
 
-        const inputName = document.querySelector("#name");
-        const inputURL = document.querySelector("#url");
-        const inputSubmit = document.querySelector("#submit");
+        // const inputName = document.querySelector("#name");
+        // const inputURL = document.querySelector("#url");
+        // const inputSubmit = document.querySelector("#submit");
 
-        // function send_page() {
-        //     url = $(this).attr("url")
-        //     console.log("Lancement de "+ url)
-        //     bc.postMessage(url)
-        //     urlLabel.innerHTML = url
-        // }
+        function send_page(url) {
+            console.log("Lancement de "+ url)
+            bc.postMessage(url)
+        }
 
   
 
