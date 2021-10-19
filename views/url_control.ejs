@@ -4,10 +4,6 @@
     </head>
 
 <body class="p-3">
-    
-
-        <h3 class="font-bold uppercase text-sm">Page actuelle</h3>
-        <h2 class="text-xl mb-5" id="actual-page">vide</h2>
 
         <div class="grid gap-2" id="URL-list">
             <% if(Object.keys(data).length === 0) {%>
@@ -35,10 +31,10 @@
         <div class="p-4 rounded-lg bg-gray-800 mt-5">
             <form action="/url/add/" method="post">
             
-                <h3 class="uppercase font-bold mb-1">Ajouter une URL</h3>
+                <h3 class="uppercase font-bold mb-1">Add a new URL</h3>
                 <div>
-                    <label class="text-white">Nom</label>
-                    <input type="text" class="text-input w-full" id="name" name="name" placeholder="Ma page">
+                    <label class="text-white">Name</label>
+                    <input type="text" class="text-input w-full" id="name" name="name" placeholder="My page">
                 </div>
                 
                 <div class="mt-3">
@@ -52,7 +48,7 @@
                     <div class="alert"><%= errorMsg %></div>
                 <%}%>
 
-                <input type="submit" class="btn w-full mt-3" value="Ajouter" id="submit"></button>
+                <input type="submit" class="btn w-full mt-3" value="Add" id="submit"></button>
 
             </form>
 
@@ -65,22 +61,13 @@
   
     <script type="text/javascript">
 
-        const bcId = 'livesahb-url-'+"<%= id %>";
+        const bcId = 'live-url-'+"<%= id %>";
         let bc = new BroadcastChannel(bcId);
 
-        // const urlLabel = document.querySelector("#actual-page")
-        // const urlList = document.querySelector("#URL-list")
-
-        // const inputName = document.querySelector("#name");
-        // const inputURL = document.querySelector("#url");
-        // const inputSubmit = document.querySelector("#submit");
-
         function send_page(url) {
-            console.log("Lancement de "+ url)
-            bc.postMessage(url)
+            console.log("Sended "+ url + " on broadcaster id " + bcId);
+            bc.postMessage(url);
         }
-
-  
 
     </script>
     

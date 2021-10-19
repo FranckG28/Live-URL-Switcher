@@ -53,11 +53,6 @@ app.get('/', (req, res) => {
   res.render('index', {title: "Accueil"});
 });
 
-// // Titles
-// app.get('/titles', (req, res) => {
-//   res.sendFile('./public/titles/control.html', {root: __dirname});
-// });
-
 app.get('/url/source/:id', (req, res) => {
   res.render('url_source', {title: "URL Source", id: req.params.id});
 });
@@ -114,5 +109,5 @@ app.use((req, res) => {
 
 // Server listen
 app.listen(8000, () => {
-  console.log(`Serveur démarré !`);
+  console.log(`Server started !`);
 });

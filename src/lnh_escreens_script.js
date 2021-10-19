@@ -5,7 +5,7 @@
 // @grant       none
 // @version     1.0
 // @author      -
-// @description 17/09/2021, 22:40:27
+// @description 17/09/2021, 22:40:27 Auto copy escreens links to copyboard when clicking on a button on LNH website.
 // ==/UserScript==
 
 let links = document.querySelectorAll(".link")
