@@ -8,20 +8,46 @@ body {
     @apply font-sahb bg-gray-900 text-gray-100
 }
 
-form {
-    margin: 0px;
-}
-
 .btn {
-    @apply bg-blue-600 rounded-lg px-5 py-2 font-bold focus:ring-4 transition ease-out duration-200 shadow-md hover:shadow-xl text-white
+    @apply py-2 px-4 rounded-lg transition ease-in-out duration-100 text-white hover:shadow-xl font-bold focus:ring 
 }
 
-.text-input {
-    @apply bg-white text-gray-800 px-4 py-2 rounded-lg border border-gray-500  focus:border-gray-600 focus:ring-2 shadow-md placeholder-gray-400 hover:shadow-xl focus:shadow-2xl block
+.btn-txt {
+    @apply hover:shadow-none 
+}
+
+.btn-red {
+    @apply bg-red-500 hover:bg-red-400 ring-red-500
+}
+
+.btn-txt.btn-red {
+    @apply bg-opacity-5 hover:bg-opacity-25 text-red-500 active:bg-opacity-100 active:text-white 
+}
+
+.btn-blue {
+    @apply bg-blue-500 hover:bg-blue-400
+}
+
+.btn-txt.btn-blue {
+    @apply bg-opacity-5 hover:bg-opacity-25 text-blue-500 active:bg-opacity-100 active:text-white
+}
+
+
+
+form {
+    @apply grid gap-4 m-0
+}
+
+input[type=text], input[type=password] {
+    @apply w-full py-2 px-3 bg-transparent border rounded-lg border-gray-700 hover:border-gray-400 hover:bg-gray-800 focus:border-white focus:bg-gray-700 transition ease-in-out duration-300 focus:ring hover:shadow-xl outline-none ring-gray-500
+}
+
+.form-grid {
+    @apply grid gap-2 md:grid-cols-2 
 }
 
 label {
-    @apply mb-0 uppercase text-sm font-bold text-gray-600 block
+    @apply mb-1 uppercase text-sm font-bold text-gray-600 block
 }
 
 .alert {
