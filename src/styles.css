@@ -47,7 +47,7 @@ input[type=text], input[type=password] {
 }
 
 label {
-    @apply mb-1 uppercase text-sm font-bold text-gray-600 block
+    @apply mb-1 uppercase text-sm font-bold text-gray-500 block
 }
 
 .alert {
