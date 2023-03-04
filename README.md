@@ -4,7 +4,7 @@ Manage in real time what URL is displayed on a source page.
 
 ![Screenshot 2023-03-04 at 12 34 34](https://user-images.githubusercontent.com/19238963/222897681-88819e6a-8d23-4523-b531-09a7c273d806.png)
 
-Useful for dynamic webview in a livestream. Source page in the scene, controller page in a panel.
+For example, this is useful for creating dynamic webviews in a livestream. Add the source page in the scene and the controller page in a panel in your broadcast software.
 
 > Note that this was my first Node.js project and one of my first in javascript. The code might be very messy and contains english and french. However, i've used in in real livestreams for one year without never encountering any problem.
 
