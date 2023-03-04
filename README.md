@@ -57,7 +57,7 @@ The app doesn't support automatic creation of the controller files, you need to 
 When using a new `id`, create an empty `[id].json` file containing an empty object (`{}`) in it.
 
 Example for id `myliveview`:
-> .data/controllers/myliveview.json
+> ./data/controllers/myliveview.json
 ```json
 {}
 ```
